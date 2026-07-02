@@ -1,0 +1,713 @@
+{
+  "eval_set_result_id": "mcp_tools_usage_evals/mcp_tools_usage.evalset.json_1782688668.5462568",
+  "eval_set_result_name": "mcp_tools_usage_evals_mcp_tools_usage.evalset.json_1782688668.5462568",
+  "eval_set_id": "evals/mcp_tools_usage.evalset.json",
+  "eval_case_results": [
+    {
+      "eval_set_file": "evals/mcp_tools_usage.evalset.json",
+      "eval_set_id": "evals/mcp_tools_usage.evalset.json",
+      "eval_id": "oauth_search_uses_mcp_tool",
+      "final_eval_status": 1,
+      "eval_metric_results": null,
+      "overall_eval_metric_results": [
+        {
+          "metric_name": "tool_trajectory_avg_score",
+          "threshold": 1.0,
+          "criterion": {
+            "threshold": 1.0,
+            "include_intermediate_responses_in_final": false,
+            "matchType": "IN_ORDER"
+          },
+          "custom_function_path": null,
+          "score": 1.0,
+          "eval_status": 1,
+          "details": {
+            "rubric_scores": null
+          }
+        },
+        {
+          "metric_name": "response_match_score",
+          "threshold": 0.6,
+          "criterion": {
+            "threshold": 0.6,
+            "include_intermediate_responses_in_final": false
+          },
+          "custom_function_path": null,
+          "score": 0.6301369863013699,
+          "eval_status": 1,
+          "details": {
+            "rubric_scores": null
+          }
+        }
+      ],
+      "eval_metric_result_per_invocation": [
+        {
+          "actual_invocation": {
+            "invocation_id": "e-776a0270-c756-4544-a293-2bfbe02a0e1d",
+            "user_content": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "Search the knowledge base for OAuth setup notes.",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "user"
+            },
+            "final_response": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "I found the following note in the knowledge base: \"Gemini OAuth setup for ADK\" (slug: `gemini-oauth-adk`). It provides information on how to use Google Cloud Application Default Credentials, enable Vertex AI, and avoid setting `GOOGLE_API_KEY` for the OAuth sample. (Source: `kb_knowledge_base_search`)",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "model"
+            },
+            "intermediate_data": {
+              "invocation_events": [
+                {
+                  "author": "mcp_tools_usage_agent",
+                  "content": {
+                    "parts": [
+                      {
+                        "media_resolution": null,
+                        "code_execution_result": null,
+                        "executable_code": null,
+                        "file_data": null,
+                        "function_call": {
+                          "id": "adk-f29e0b6b-ddbf-4319-b1cb-b7953a19b15f",
+                          "args": {
+                            "query": "OAuth setup notes"
+                          },
+                          "name": "kb_knowledge_base_search",
+                          "partial_args": null,
+                          "will_continue": null
+                        },
+                        "function_response": null,
+                        "inline_data": null,
+                        "text": null,
+                        "thought": null,
+                        "thought_signature": "CvIBAY89a19Ulsu1GUhj4N11hvr5ZLYcgBLzVxskG5Rk0q7O6NdRSkFs5OdC-X5RYWCIPTXP0dlyi-Mnku0xPnKI0EZjjhvVwPBye1VLwGt6PUDcwPw7u2PEJVxSHN_JviaWPSEi7Hc24cRYu_E5ATeZXrilYMedVdLSlHzS_Hl1zEXV7kA25zxICrN5KnfVrxM_iXGeTg471ZmWEyXsFrb4fPGSYzham0yguO2Qt7WPGc7p3QdJbBulVTBTWsCwjKK1jnnqOE7p57QNBUEFkwsR76ASFdWx23WcMMsfZJu_ZR7Jq6mL6c6meHLxpYIpRcjGhO8=",
+                        "video_metadata": null,
+                        "tool_call": null,
+                        "tool_response": null,
+                        "part_metadata": null
+                      }
+                    ],
+                    "role": "model"
+                  }
+                },
+                {
+                  "author": "mcp_tools_usage_agent",
+                  "content": {
+                    "parts": [
+                      {
+                        "media_resolution": null,
+                        "code_execution_result": null,
+                        "executable_code": null,
+                        "file_data": null,
+                        "function_call": null,
+                        "function_response": {
+                          "will_continue": null,
+                          "scheduling": null,
+                          "parts": null,
+                          "id": "adk-f29e0b6b-ddbf-4319-b1cb-b7953a19b15f",
+                          "name": "kb_knowledge_base_search",
+                          "response": {
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "{\n  \"query\": \"OAuth setup notes\",\n  \"matches\": [\n    {\n      \"slug\": \"gemini-oauth-adk\",\n      \"title\": \"Gemini OAuth setup for ADK\",\n      \"summary\": \"Use Google Cloud Application Default Credentials, enable Vertex AI, and avoid setting GOOGLE_API_KEY for this OAuth sample.\",\n      \"tags\": [\n        \"adk\",\n        \"gemini\",\n        \"oauth\",\n        \"vertex-ai\"\n      ],\n      \"score\": 2\n    }\n  ]\n}"
+                              }
+                            ],
+                            "isError": false
+                          }
+                        },
+                        "inline_data": null,
+                        "text": null,
+                        "thought": null,
+                        "thought_signature": null,
+                        "video_metadata": null,
+                        "tool_call": null,
+                        "tool_response": null,
+                        "part_metadata": null
+                      }
+                    ],
+                    "role": "user"
+                  }
+                }
+              ]
+            },
+            "creation_timestamp": 1782688667.195252,
+            "rubrics": null,
+            "app_details": {
+              "agent_details": {
+                "mcp_tools_usage_agent": {
+                  "name": "mcp_tools_usage_agent",
+                  "instructions": "You answer questions using the local MCP knowledge-base tools. Use kb_knowledge_base_search to find relevant notes, then use kb_get_runbook when the user asks for exact steps or a runbook. Keep answers concise and mention which MCP tool supplied the facts.\n\nYou are an agent. Your internal name is \"mcp_tools_usage_agent\". The description about you is \"Uses a local MCP stdio server as an ADK tool source.\".",
+                  "tool_declarations": [
+                    {
+                      "retrieval": null,
+                      "computer_use": null,
+                      "file_search": null,
+                      "google_search": null,
+                      "google_maps": null,
+                      "code_execution": null,
+                      "enterprise_web_search": null,
+                      "function_declarations": [
+                        {
+                          "description": "Search the local ADK sample knowledge base.",
+                          "name": "kb_knowledge_base_search",
+                          "parameters": null,
+                          "parameters_json_schema": {
+                            "properties": {
+                              "query": {
+                                "title": "Query",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "query"
+                            ],
+                            "title": "knowledge_base_searchArguments",
+                            "type": "object"
+                          },
+                          "response": null,
+                          "response_json_schema": null,
+                          "behavior": null
+                        },
+                        {
+                          "description": "Fetch a runbook by slug from the local knowledge base.",
+                          "name": "kb_get_runbook",
+                          "parameters": null,
+                          "parameters_json_schema": {
+                            "properties": {
+                              "slug": {
+                                "title": "Slug",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "slug"
+                            ],
+                            "title": "get_runbookArguments",
+                            "type": "object"
+                          },
+                          "response": null,
+                          "response_json_schema": null,
+                          "behavior": null
+                        }
+                      ],
+                      "google_search_retrieval": null,
+                      "parallel_ai_search": null,
+                      "url_context": null,
+                      "mcp_servers": null
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "expected_invocation": {
+            "invocation_id": "05a57467-28ef-46f6-8fdc-0d6701304389",
+            "user_content": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "Search the knowledge base for OAuth setup notes.",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "user"
+            },
+            "final_response": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "The Gemini OAuth setup for ADK notes cover Google Cloud Application Default Credentials, enabling Vertex AI, and avoiding GOOGLE_API_KEY for this OAuth sample.",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "model"
+            },
+            "intermediate_data": {
+              "tool_uses": [
+                {
+                  "id": null,
+                  "args": {
+                    "query": "OAuth setup notes"
+                  },
+                  "name": "kb_knowledge_base_search",
+                  "partial_args": null,
+                  "will_continue": null
+                }
+              ],
+              "tool_responses": [],
+              "intermediate_responses": []
+            },
+            "creation_timestamp": 1782688665.685208,
+            "rubrics": null,
+            "app_details": null
+          },
+          "eval_metric_results": [
+            {
+              "metric_name": "tool_trajectory_avg_score",
+              "threshold": 1.0,
+              "criterion": {
+                "threshold": 1.0,
+                "include_intermediate_responses_in_final": false,
+                "matchType": "IN_ORDER"
+              },
+              "custom_function_path": null,
+              "score": 1.0,
+              "eval_status": 1,
+              "details": {
+                "rubric_scores": null
+              }
+            },
+            {
+              "metric_name": "response_match_score",
+              "threshold": 0.6,
+              "criterion": {
+                "threshold": 0.6,
+                "include_intermediate_responses_in_final": false
+              },
+              "custom_function_path": null,
+              "score": 0.6301369863013699,
+              "eval_status": 1,
+              "details": {
+                "rubric_scores": null
+              }
+            }
+          ]
+        }
+      ],
+      "session_id": "___eval___session___a8924619-1e43-412e-abf2-4372d1272aec",
+      "session_details": {
+        "id": "___eval___session___a8924619-1e43-412e-abf2-4372d1272aec",
+        "app_name": "mcp_tools_usage",
+        "user_id": "eval-user",
+        "state": {
+          "__llm_request_key__": "d6a5bc4d-47aa-4b5d-bbe2-ab9bffc43774"
+        },
+        "events": [
+          {
+            "model_version": null,
+            "content": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "Search the knowledge base for OAuth setup notes.",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "user"
+            },
+            "grounding_metadata": null,
+            "partial": null,
+            "turn_complete": null,
+            "turn_complete_reason": null,
+            "finish_reason": null,
+            "error_code": null,
+            "error_message": null,
+            "interrupted": null,
+            "custom_metadata": null,
+            "usage_metadata": null,
+            "live_session_resumption_update": null,
+            "live_session_id": null,
+            "go_away": null,
+            "input_transcription": null,
+            "output_transcription": null,
+            "avg_logprobs": null,
+            "logprobs_result": null,
+            "cache_metadata": null,
+            "citation_metadata": null,
+            "interaction_id": null,
+            "invocation_id": "e-776a0270-c756-4544-a293-2bfbe02a0e1d",
+            "author": "user",
+            "actions": {
+              "skip_summarization": null,
+              "state_delta": {},
+              "artifact_delta": {},
+              "transfer_to_agent": null,
+              "escalate": null,
+              "requested_auth_configs": {},
+              "requested_tool_confirmations": {},
+              "compaction": null,
+              "end_of_agent": null,
+              "agent_state": null,
+              "rewind_before_invocation_id": null,
+              "route": null,
+              "render_ui_widgets": null,
+              "set_model_response": null
+            },
+            "output": null,
+            "node_info": {
+              "path": "",
+              "output_for": null,
+              "message_as_output": null
+            },
+            "long_running_tool_ids": null,
+            "branch": null,
+            "isolation_scope": null,
+            "id": "460198a1-9791-4076-9fb0-e18ad5b2d4f7",
+            "timestamp": 1782688665.686151
+          },
+          {
+            "model_version": "gemini-2.5-flash",
+            "content": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": {
+                    "id": "adk-f29e0b6b-ddbf-4319-b1cb-b7953a19b15f",
+                    "args": {
+                      "query": "OAuth setup notes"
+                    },
+                    "name": "kb_knowledge_base_search",
+                    "partial_args": null,
+                    "will_continue": null
+                  },
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": null,
+                  "thought": null,
+                  "thought_signature": "CvIBAY89a19Ulsu1GUhj4N11hvr5ZLYcgBLzVxskG5Rk0q7O6NdRSkFs5OdC-X5RYWCIPTXP0dlyi-Mnku0xPnKI0EZjjhvVwPBye1VLwGt6PUDcwPw7u2PEJVxSHN_JviaWPSEi7Hc24cRYu_E5ATeZXrilYMedVdLSlHzS_Hl1zEXV7kA25zxICrN5KnfVrxM_iXGeTg471ZmWEyXsFrb4fPGSYzham0yguO2Qt7WPGc7p3QdJbBulVTBTWsCwjKK1jnnqOE7p57QNBUEFkwsR76ASFdWx23WcMMsfZJu_ZR7Jq6mL6c6meHLxpYIpRcjGhO8=",
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "model"
+            },
+            "grounding_metadata": null,
+            "partial": null,
+            "turn_complete": null,
+            "turn_complete_reason": null,
+            "finish_reason": "STOP",
+            "error_code": null,
+            "error_message": null,
+            "interrupted": null,
+            "custom_metadata": {
+              "__llm_request_key__": "c036c04f-dd46-47be-9ae0-192459c75930"
+            },
+            "usage_metadata": {
+              "cache_tokens_details": null,
+              "cached_content_token_count": null,
+              "candidates_token_count": 11,
+              "candidates_tokens_details": [
+                {
+                  "modality": "TEXT",
+                  "token_count": 11
+                }
+              ],
+              "prompt_token_count": 140,
+              "prompt_tokens_details": [
+                {
+                  "modality": "TEXT",
+                  "token_count": 140
+                }
+              ],
+              "thoughts_token_count": 48,
+              "tool_use_prompt_token_count": null,
+              "tool_use_prompt_tokens_details": null,
+              "total_token_count": 199,
+              "traffic_type": "ON_DEMAND"
+            },
+            "live_session_resumption_update": null,
+            "live_session_id": null,
+            "go_away": null,
+            "input_transcription": null,
+            "output_transcription": null,
+            "avg_logprobs": -0.20934250138022684,
+            "logprobs_result": null,
+            "cache_metadata": null,
+            "citation_metadata": null,
+            "interaction_id": null,
+            "invocation_id": "e-776a0270-c756-4544-a293-2bfbe02a0e1d",
+            "author": "mcp_tools_usage_agent",
+            "actions": {
+              "skip_summarization": null,
+              "state_delta": {
+                "__llm_request_key__": "c036c04f-dd46-47be-9ae0-192459c75930"
+              },
+              "artifact_delta": {},
+              "transfer_to_agent": null,
+              "escalate": null,
+              "requested_auth_configs": {},
+              "requested_tool_confirmations": {},
+              "compaction": null,
+              "end_of_agent": null,
+              "agent_state": null,
+              "rewind_before_invocation_id": null,
+              "route": null,
+              "render_ui_widgets": null,
+              "set_model_response": null
+            },
+            "output": null,
+            "node_info": {
+              "path": "mcp_tools_usage_agent@1",
+              "output_for": null,
+              "message_as_output": null
+            },
+            "long_running_tool_ids": [],
+            "branch": null,
+            "isolation_scope": null,
+            "id": "0667b346-a73c-49c7-a069-ca4981a95853",
+            "timestamp": 1782688665.8816981
+          },
+          {
+            "model_version": null,
+            "content": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": {
+                    "will_continue": null,
+                    "scheduling": null,
+                    "parts": null,
+                    "id": "adk-f29e0b6b-ddbf-4319-b1cb-b7953a19b15f",
+                    "name": "kb_knowledge_base_search",
+                    "response": {
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "{\n  \"query\": \"OAuth setup notes\",\n  \"matches\": [\n    {\n      \"slug\": \"gemini-oauth-adk\",\n      \"title\": \"Gemini OAuth setup for ADK\",\n      \"summary\": \"Use Google Cloud Application Default Credentials, enable Vertex AI, and avoid setting GOOGLE_API_KEY for this OAuth sample.\",\n      \"tags\": [\n        \"adk\",\n        \"gemini\",\n        \"oauth\",\n        \"vertex-ai\"\n      ],\n      \"score\": 2\n    }\n  ]\n}"
+                        }
+                      ],
+                      "isError": false
+                    }
+                  },
+                  "inline_data": null,
+                  "text": null,
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "user"
+            },
+            "grounding_metadata": null,
+            "partial": null,
+            "turn_complete": null,
+            "turn_complete_reason": null,
+            "finish_reason": null,
+            "error_code": null,
+            "error_message": null,
+            "interrupted": null,
+            "custom_metadata": null,
+            "usage_metadata": null,
+            "live_session_resumption_update": null,
+            "live_session_id": null,
+            "go_away": null,
+            "input_transcription": null,
+            "output_transcription": null,
+            "avg_logprobs": null,
+            "logprobs_result": null,
+            "cache_metadata": null,
+            "citation_metadata": null,
+            "interaction_id": null,
+            "invocation_id": "e-776a0270-c756-4544-a293-2bfbe02a0e1d",
+            "author": "mcp_tools_usage_agent",
+            "actions": {
+              "skip_summarization": null,
+              "state_delta": {},
+              "artifact_delta": {},
+              "transfer_to_agent": null,
+              "escalate": null,
+              "requested_auth_configs": {},
+              "requested_tool_confirmations": {},
+              "compaction": null,
+              "end_of_agent": null,
+              "agent_state": null,
+              "rewind_before_invocation_id": null,
+              "route": null,
+              "render_ui_widgets": null,
+              "set_model_response": null
+            },
+            "output": null,
+            "node_info": {
+              "path": "mcp_tools_usage_agent@1",
+              "output_for": null,
+              "message_as_output": null
+            },
+            "long_running_tool_ids": null,
+            "branch": null,
+            "isolation_scope": null,
+            "id": "ebb5981c-e480-4e8a-a327-e06e3a03394d",
+            "timestamp": 1782688667.200315
+          },
+          {
+            "model_version": "gemini-2.5-flash",
+            "content": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "I found the following note in the knowledge base: \"Gemini OAuth setup for ADK\" (slug: `gemini-oauth-adk`). It provides information on how to use Google Cloud Application Default Credentials, enable Vertex AI, and avoid setting `GOOGLE_API_KEY` for the OAuth sample. (Source: `kb_knowledge_base_search`)",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null
+                }
+              ],
+              "role": "model"
+            },
+            "grounding_metadata": null,
+            "partial": null,
+            "turn_complete": null,
+            "turn_complete_reason": null,
+            "finish_reason": "STOP",
+            "error_code": null,
+            "error_message": null,
+            "interrupted": null,
+            "custom_metadata": {
+              "__llm_request_key__": "d6a5bc4d-47aa-4b5d-bbe2-ab9bffc43774"
+            },
+            "usage_metadata": {
+              "cache_tokens_details": null,
+              "cached_content_token_count": null,
+              "candidates_token_count": 75,
+              "candidates_tokens_details": [
+                {
+                  "modality": "TEXT",
+                  "token_count": 75
+                }
+              ],
+              "prompt_token_count": 340,
+              "prompt_tokens_details": [
+                {
+                  "modality": "TEXT",
+                  "token_count": 340
+                }
+              ],
+              "thoughts_token_count": null,
+              "tool_use_prompt_token_count": null,
+              "tool_use_prompt_tokens_details": null,
+              "total_token_count": 415,
+              "traffic_type": "ON_DEMAND"
+            },
+            "live_session_resumption_update": null,
+            "live_session_id": null,
+            "go_away": null,
+            "input_transcription": null,
+            "output_transcription": null,
+            "avg_logprobs": -0.1546767552693685,
+            "logprobs_result": null,
+            "cache_metadata": null,
+            "citation_metadata": null,
+            "interaction_id": null,
+            "invocation_id": "e-776a0270-c756-4544-a293-2bfbe02a0e1d",
+            "author": "mcp_tools_usage_agent",
+            "actions": {
+              "skip_summarization": null,
+              "state_delta": {
+                "__llm_request_key__": "d6a5bc4d-47aa-4b5d-bbe2-ab9bffc43774"
+              },
+              "artifact_delta": {},
+              "transfer_to_agent": null,
+              "escalate": null,
+              "requested_auth_configs": {},
+              "requested_tool_confirmations": {},
+              "compaction": null,
+              "end_of_agent": null,
+              "agent_state": null,
+              "rewind_before_invocation_id": null,
+              "route": null,
+              "render_ui_widgets": null,
+              "set_model_response": null
+            },
+            "output": null,
+            "node_info": {
+              "path": "mcp_tools_usage_agent@1",
+              "output_for": null,
+              "message_as_output": null
+            },
+            "long_running_tool_ids": null,
+            "branch": null,
+            "isolation_scope": null,
+            "id": "6438ab49-9502-4142-ad50-079c695a7cc1",
+            "timestamp": 1782688667.20458
+          }
+        ],
+        "last_update_time": 1782688667.20458
+      },
+      "user_id": "eval-user"
+    }
+  ],
+  "creation_timestamp": 1782688668.5462568
+}

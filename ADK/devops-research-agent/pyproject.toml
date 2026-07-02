@@ -1,0 +1,30 @@
+[project]
+name = "google-adk-sample"
+version = "0.1.0"
+description = "Minimal Google ADK sample agent."
+requires-python = ">=3.11"
+dependencies = [
+    "a2a-sdk~=0.3.22",
+    "aiohttp>=3.13.4",
+    "google-adk==2.3.0",
+    "google-cloud-aiplatform[agent-engines]==1.159.0",
+    "google-cloud-logging>=3.16.0",
+    "google-genai==2.10.0",
+    "mcp==1.28.1",
+    "opentelemetry-instrumentation-google-genai>=0.7b1",
+    "pandas==3.0.4",
+    "python-dotenv==1.2.2",
+    "rouge-score==0.1.2",
+    "tabulate==0.10.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["my_agent*", "patterns*"]
+
+[project.optional-dependencies]
+eval = []
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

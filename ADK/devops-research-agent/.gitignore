@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.DS_Store
+.env
+*.env
+.google-agents-cli/
+my_agent/.adk/
+artifacts/
+google_adk_sample.egg-info/
