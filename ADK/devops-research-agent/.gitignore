@@ -7,7 +7,9 @@ __pycache__/
 .DS_Store
 .env
 *.env
+.agents/
 .google-agents-cli/
+**/.adk/
 my_agent/.adk/
 artifacts/
 google_adk_sample.egg-info/
