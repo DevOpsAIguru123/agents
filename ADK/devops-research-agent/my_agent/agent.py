@@ -4,12 +4,8 @@ from google.adk.apps import App
 from google.adk.tools import google_search
 from vertexai.agent_engines import AdkApp
 
-from my_agent.google_search_mcp import create_google_search_mcp_toolset
-from my_agent.google_search_mcp import google_search_mcp_enabled
-
 
 MODEL = os.getenv("DEMO_AGENT_MODEL", "gemini-2.5-flash")
-_FALSE_VALUES = {"0", "false", "no", "off"}
 BASE_INSTRUCTION = """
 You are the DevOps Deep Research Agent.
 
@@ -48,12 +44,6 @@ When the user asks for research:
 For non-research requests, still help as a concise DevOps/platform engineering
 assistant.
 """.strip()
-GOOGLE_SEARCH_INSTRUCTION = (
-    " When the user asks for current, source-backed, or external web research, "
-    "use the google_search MCP tool. Prefer concise source-aware summaries and "
-    "include relevant result titles or URLs when they help the user verify the "
-    "answer."
-)
 ADK_GOOGLE_SEARCH_INSTRUCTION = (
     " When the user asks for current, source-backed, or external web research, "
     "use the built-in google_search tool. Prefer concise source-aware "
@@ -62,26 +52,7 @@ ADK_GOOGLE_SEARCH_INSTRUCTION = (
 )
 
 
-def adk_google_search_enabled() -> bool:
-    """Return whether ADK's built-in Google Search AgentTool should be attached."""
-    return os.getenv("ENABLE_ADK_GOOGLE_SEARCH", "true").strip().lower() not in _FALSE_VALUES
-
-
-def build_agent(
-    *,
-    include_google_search_mcp: bool,
-    include_adk_google_search: bool,
-) -> Agent:
-    tools = []
-    instruction = BASE_INSTRUCTION
-
-    if include_adk_google_search:
-        tools.append(google_search)
-        instruction += ADK_GOOGLE_SEARCH_INSTRUCTION
-    elif include_google_search_mcp:
-        tools.append(create_google_search_mcp_toolset())
-        instruction += GOOGLE_SEARCH_INSTRUCTION
-
+def build_agent() -> Agent:
     return Agent(
         model=MODEL,
         name="devops_deep_research_agent",
@@ -90,19 +61,13 @@ def build_agent(
             "SRE, CI/CD, observability, security, cost, and infrastructure "
             "research."
         ),
-        instruction=instruction,
-        tools=tools,
+        instruction=BASE_INSTRUCTION + ADK_GOOGLE_SEARCH_INSTRUCTION,
+        tools=[google_search],
     )
 
 
-root_agent = build_agent(
-    include_google_search_mcp=google_search_mcp_enabled(),
-    include_adk_google_search=adk_google_search_enabled(),
-)
-platform_root_agent = build_agent(
-    include_google_search_mcp=False,
-    include_adk_google_search=False,
-)
+root_agent = build_agent()
+platform_root_agent = build_agent()
 
 app = App(root_agent=root_agent, name="my_agent")
 platform_app = AdkApp(agent=platform_root_agent, app_name="my_agent")

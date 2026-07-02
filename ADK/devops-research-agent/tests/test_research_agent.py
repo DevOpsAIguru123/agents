@@ -28,7 +28,7 @@ class ResearchAgentConfigTests(unittest.TestCase):
         self.assertIn("Critique your own findings", agent_module.root_agent.instruction)
         self.assertIn("inline citations", agent_module.root_agent.instruction)
         self.assertIn("DevOps Deep Research Agent", agent_module.root_agent.description)
-        self.assertEqual(agent_module.platform_root_agent.tools, [])
+        self.assertEqual(len(agent_module.platform_root_agent.tools), 1)
 
 
 if __name__ == "__main__":
