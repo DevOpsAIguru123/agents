@@ -1,0 +1,82 @@
+name: Terraform Drift Detector
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ADK/terraform-drift-detector
+    env:
+      GOOGLE_GENAI_USE_VERTEXAI: "true"
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      TF_TOKEN_app_terraform_io: ${{ secrets.TFC_TOKEN }}
+      TF_IN_AUTOMATION: "true"
+      MODEL: gemini-2.5-flash
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install agent dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.7
+
+      - name: Generate Terraform Cloud refresh-only plan
+        run: |
+          set +e
+          terraform -chdir=../terraform-plan-reviewer/terraform/gcs-sample init -input=false
+          terraform -chdir=../terraform-plan-reviewer/terraform/gcs-sample plan -refresh-only -detailed-exitcode -input=false -no-color | tee drift-plan.txt
+          tf_status=${PIPESTATUS[0]}
+          echo "terraform_exit_code=${tf_status}" | tee drift-status.env
+          if [ "${tf_status}" -eq 1 ]; then
+            exit 1
+          fi
+
+      - name: Review drift plan with ADK agent
+        run: |
+          echo "Agent drift review result:"
+          python run_drift_review.py < drift-plan.txt | tee drift-review.json
+
+      - name: Notify Discord when drift is detected
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          result = json.load(open("drift-review.json"))
+          print("drift_detected:", result["drift_detected"])
+          if not result["drift_detected"]:
+              print("No drift detected; Discord notification skipped.")
+              raise SystemExit(0)
+
+          webhook = os.environ["DISCORD_WEBHOOK_URL"]
+          message = result["discord_message"]
+          payload = json.dumps({"content": message}).encode()
+          request = urllib.request.Request(
+              webhook,
+              data=payload,
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          with urllib.request.urlopen(request, timeout=20) as response:
+              print("Discord notification status:", response.status)
+          PY
