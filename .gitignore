@@ -3,3 +3,10 @@ __pycache__/
 .env
 .venv/
 .pytest_cache/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+*-plan.txt
+*-plan.no-color.txt

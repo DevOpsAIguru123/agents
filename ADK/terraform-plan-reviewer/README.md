@@ -19,6 +19,24 @@ cp .env.example .env
 python run_review.py < terraform-plan.txt
 ```
 
+## Terraform Cloud Plan Review
+
+The GitHub Actions workflow runs a real Terraform Cloud speculative plan from:
+
+```text
+ADK/terraform-plan-reviewer/terraform/gcs-sample
+```
+
+Terraform Cloud target:
+
+```text
+organization: devops_vv
+workspace: agents
+```
+
+The workflow sends the streamed Terraform Cloud plan output to `run_review.py`
+and fails unless the agent returns `safe-to-apply`.
+
 Expected output:
 
 ```json
