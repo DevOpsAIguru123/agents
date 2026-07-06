@@ -38,13 +38,14 @@ jobs:
 
       - name: Generate Terraform Cloud plan
         run: |
+          set -o pipefail
           terraform -chdir=terraform/gcs-sample init -input=false
           terraform -chdir=terraform/gcs-sample plan -input=false -no-color | tee terraform-cloud-plan.txt
 
       - name: Review Terraform Cloud plan with ADK agent
         run: |
           echo "Agent review result for Terraform Cloud plan:"
-          python run_review.py < terraform/gcs-sample/terraform-cloud-plan.txt | tee terraform-cloud-review.json
+          python run_review.py < terraform-cloud-plan.txt | tee terraform-cloud-review.json
           python - <<'PY'
           import json
           result = json.load(open("terraform-cloud-review.json"))
