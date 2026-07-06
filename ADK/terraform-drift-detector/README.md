@@ -36,6 +36,27 @@ GitHub Actions
   -> Discord message only when drift_detected == true
 ```
 
+## Architecture
+
+```mermaid
+flowchart LR
+    trigger["Manual or scheduled GitHub Actions trigger"]
+    checkout["Checkout agents repo"]
+    tfc["Terraform Cloud workspace<br/>devops_vv / agents"]
+    plan["Refresh-only Terraform plan<br/>terraform plan -refresh-only"]
+    runner["ADK drift runner<br/>run_drift_review.py"]
+    agent["Terraform drift detector agent<br/>agent.py"]
+    gemini["Gemini on Vertex AI<br/>GOOGLE_API_KEY"]
+    output["Structured drift JSON"]
+    decision{"drift_detected?"}
+    discord["Discord #tf-drift alert<br/>DISCORD_WEBHOOK_URL"]
+    noop["No notification"]
+
+    trigger --> checkout --> tfc --> plan --> runner --> agent --> gemini --> agent --> output --> decision
+    decision -- "true" --> discord
+    decision -- "false" --> noop
+```
+
 ## Files
 
 ```text
@@ -148,6 +169,10 @@ Discord received:
 ```text
 Drift detected for `google_storage_bucket.sample`. Storage class changed from `STANDARD` to `NEARLINE`. Verify if this change was intentional due to cost/performance implications.
 ```
+
+Screenshot of the Discord alert:
+
+![Terraform drift alert in Discord](assets/discord-drift-alert.png)
 
 ## Local Test
 
