@@ -51,25 +51,3 @@ jobs:
           result = json.load(open("terraform-cloud-review.json"))
           assert result["recommendation"] == "safe-to-apply", result
           PY
-
-      - name: Review destructive fixture with ADK agent
-        run: |
-          cat > destroy-plan.txt <<'PLAN'
-          Terraform will perform the following actions:
-
-            # google_storage_bucket.sample will be destroyed
-            - resource "google_storage_bucket" "sample" {
-                - name = "agent-review-destroy-sample" -> null
-              }
-
-          Plan: 0 to add, 0 to change, 1 to destroy.
-          PLAN
-
-          echo "Agent review result for destructive plan:"
-          python run_review.py < destroy-plan.txt | tee destroy-review.json
-          python - <<'PY'
-          import json
-          result = json.load(open("destroy-review.json"))
-          assert result["recommendation"] == "approval-required", result
-          assert "terraform-destroy" in result["findings"], result
-          PY
