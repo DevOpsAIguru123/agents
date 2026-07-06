@@ -1,0 +1,89 @@
+name: Terraform Plan Reviewer Agent
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ADK/terraform-plan-reviewer
+    env:
+      GOOGLE_GENAI_USE_VERTEXAI: "true"
+      GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
+      GOOGLE_CLOUD_LOCATION: ${{ secrets.GOOGLE_CLOUD_LOCATION }}
+      MODEL: gemini-2.5-flash
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install agent dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Review safe Terraform plan
+        run: |
+          cat > safe-plan.txt <<'PLAN'
+          Terraform will perform the following actions:
+
+            # google_storage_bucket.sample will be created
+            + resource "google_storage_bucket" "sample" {
+                + name                        = "agent-review-safe-sample"
+                + location                    = "US"
+                + public_access_prevention    = "enforced"
+                + uniform_bucket_level_access = true
+                + labels = {
+                    + "app"   = "terraform-plan-reviewer-test"
+                    + "env"   = "dev"
+                    + "owner" = "platform"
+                  }
+              }
+
+          Plan: 1 to add, 0 to change, 0 to destroy.
+          PLAN
+
+          echo "Agent review result for safe plan:"
+          python run_review.py < safe-plan.txt | tee safe-review.json
+          python - <<'PY'
+          import json
+          result = json.load(open("safe-review.json"))
+          assert result["recommendation"] == "safe-to-apply", result
+          PY
+
+      - name: Review destructive Terraform plan
+        run: |
+          cat > destroy-plan.txt <<'PLAN'
+          Terraform will perform the following actions:
+
+            # google_storage_bucket.sample will be destroyed
+            - resource "google_storage_bucket" "sample" {
+                - name = "agent-review-destroy-sample" -> null
+              }
+
+          Plan: 0 to add, 0 to change, 1 to destroy.
+          PLAN
+
+          echo "Agent review result for destructive plan:"
+          python run_review.py < destroy-plan.txt | tee destroy-review.json
+          python - <<'PY'
+          import json
+          result = json.load(open("destroy-review.json"))
+          assert result["recommendation"] == "approval-required", result
+          assert "terraform-destroy" in result["findings"], result
+          PY
