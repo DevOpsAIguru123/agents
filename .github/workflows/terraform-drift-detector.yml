@@ -60,6 +60,7 @@ jobs:
           python - <<'PY'
           import json
           import os
+          import urllib.error
           import urllib.request
 
           result = json.load(open("drift-review.json"))
@@ -74,9 +75,17 @@ jobs:
           request = urllib.request.Request(
               webhook,
               data=payload,
-              headers={"Content-Type": "application/json"},
+              headers={
+                  "Content-Type": "application/json",
+                  "User-Agent": "github-actions-terraform-drift-detector",
+              },
               method="POST",
           )
-          with urllib.request.urlopen(request, timeout=20) as response:
-              print("Discord notification status:", response.status)
+          try:
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  print("Discord notification status:", response.status)
+          except urllib.error.HTTPError as exc:
+              print("Discord notification failed:", exc.code, exc.reason)
+              print(exc.read().decode("utf-8", errors="replace"))
+              raise
           PY
